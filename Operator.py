@@ -1,14 +1,10 @@
 
 class Operator:
-    binaryOperator = '+'
-    name = 'plus'
-
-    def __new__(cls, *args, **kwargs):
-        
-
-    def __init__(self, member):
-        self.binaryOperator = binaryOperator
-        self.name = name
+    def __init__(self, **kwargs):
+        if kwargs.has_key('binaryOperator'):
+            self.binaryOperator = kwargs['binaryOperator']
+        if kwargs.has_key('name'):
+            self.name = kwargs['name']
 
 
 def add(x, y):
@@ -30,7 +26,7 @@ def divide(x, y):
         return None
 
 
-operatorAdd = Operator(add, '+')
-operatorMinus = Operator(minus, '-')
-operatorMultiply = Operator(multiply, '*')
-operatorDivide = Operator(divide, '/')
+operatorAdd = Operator(binaryOperator = add, name = '+')
+operatorMinus = Operator(binaryOperator = minus, name = '-')
+operatorMultiply = Operator(binaryOperator = multiply, name = '*')
+operatorDivide = Operator(binaryOperator = divide, name = '/')
