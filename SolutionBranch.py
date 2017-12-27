@@ -1,4 +1,5 @@
 import History
+import copy
 
 
 class SolutionBranch:
@@ -11,13 +12,13 @@ class SolutionBranch:
         if kwargs.has_key('target_value'):
             self.target_value = kwargs['target_value']
         if kwargs.has_key('alphabet'):
-            self.alphabet = kwargs['alphabet']
+            self.alphabet = copy.copy(kwargs['alphabet'])
         if kwargs.has_key('value'):
             self.value = kwargs['value']
         if kwargs.has_key('history'):
-            self.history = kwargs['history']
+            self.history = copy.copy(kwargs['history'])
         if kwargs.has_key('solution'):
-            self.alphabet = kwargs['solution'].alphabet
+            self.alphabet = kwargs['solution'].alphabet[:]
             self.value = kwargs['solution'].value
             self.history = kwargs['solution'].history
             self.target_value = kwargs['solution'].target_value
@@ -26,12 +27,21 @@ class SolutionBranch:
         assert index < self.alphabet.__len__()
         nextValue = operator.compute(self.value, self.alphabet[index])
         if (nextValue != None) and (nextValue > 0):
-            nextAlphabet = self.alphabet[:]
+            nextAlphabet = copy.copy(self.alphabet)
             nextHistory = History.History(history = self.history)
-            nextHistory.tabValue.append(nextValue)
-            nextHistory.tabOperator.append(operator)
-            del nextAlphabet[-index]
-            return SolutionBranch(value = nextValue, alphabet = nextAlphabet, history = nextHistory, target_value = self.target_value)
+            nextHistory.tab_letters.append(self.alphabet[index])
+            nextHistory.tab_operators.append(operator)
+            del nextAlphabet[index]
+            nextBranch = SolutionBranch(value = nextValue, alphabet = nextAlphabet, history = nextHistory, target_value = self.target_value)
+            # print('___________________________________')
+            # print('current alphabet')
+            # print(self.alphabet)
+            # print(' I picked [index] = ' + str(index) + 'which is ' + str(self.alphabet[index]) )
+            # print('nextAlphabet')
+            # print(nextBranch.alphabet)
+            # print("current history.tab_letters")
+            # print(nextBranch.history.tab_letters)
+            return nextBranch
 
     def bloom(self, operatorList, solutionList, depth):
         for ope in operatorList:

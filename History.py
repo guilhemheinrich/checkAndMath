@@ -1,17 +1,17 @@
-
+import copy
 
 
 
 class History:
     def __init__(self, **kwargs):
-        self.tabOperator = []
-        self.tabValue = []
+        self.tab_operators = []
+        self.tab_letters = []
         if kwargs.has_key('history'):
-            self.tabOperator = kwargs['history'].tabOperator[:]
-            self.tabValue = kwargs['history'].tabValue[:]
+            self.tab_operators = copy.copy(kwargs['history'].tab_operators)
+            self.tab_letters = copy.copy(kwargs['history'].tab_letters)
     def addItem(self, operator, value):
-        self.tabOperator.append(operator)
-        self.tabValue.append(value)
+        self.tab_operators.append(operator)
+        self.tab_letters.append(value)
     '''
     A key with the same operation in different order must be identical
     '''

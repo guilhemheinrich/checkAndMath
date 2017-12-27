@@ -21,4 +21,7 @@ root.bloom(allOperator, allSolution, 0)
 
 def showDepth(depth):
     for sol in allSolution[depth]:
-        print(sol.value)
+        print(sol.alphabet)
+
+for sol in allSolution[1]:
+    print(sol.history.tab_letters)

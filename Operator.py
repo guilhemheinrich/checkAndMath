@@ -1,8 +1,9 @@
+import copy
 
 class Operator:
     def __init__(self, **kwargs):
         if kwargs.has_key('binaryOperator'):
-            self.binaryOperator = kwargs['binaryOperator']
+            self.binaryOperator = copy.copy(kwargs['binaryOperator'])
         if kwargs.has_key('name'):
             self.name = kwargs['name']
 
