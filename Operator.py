@@ -6,6 +6,9 @@ class Operator:
         if kwargs.has_key('name'):
             self.name = kwargs['name']
 
+    def compute(self, x, y):
+        return self.binaryOperator(x, y)
+
 
 def add(x, y):
     return x + y

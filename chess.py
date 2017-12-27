@@ -1,15 +1,24 @@
 import SolutionBranch
 import Operator
+import History
 
-teamA = (2,3,5,7,9,11,17,19,23)
-teamB = (2,3,5,7,9,11,17,19,23)
+# teamA = [2,3,5,7,9,11,17,19,23]
+teamA = [2,3,5]
+teamB = [2,3,5,7,9,11,17,19,23]
 
-# allOperator = {operatorAdd, operatorMinus, operatorMultiply, operatorDivide}
+allOperator = (Operator.operatorAdd, Operator.operatorMinus, Operator.operatorMultiply, Operator.operatorDivide)
 
-allOperator = {add, minus, multiply, divide}
+# allOperator = {operatorAdd, operatorAdd, operatorAdd, operatorAdd}
 
-root = SolutionBranch(alphabet = teamA)
+# hist = History.History()
+# hist.tabOperator
+root = SolutionBranch.SolutionBranch(alphabet = teamA)
 
-root.generate(0, add)
+# root.generate(0, Operator.operatorAdd)
 
-def bloom(solutionBranch, operatorList):
+allSolution = {}
+root.bloom(allOperator, allSolution, 0)
+
+def showDepth(depth):
+    for sol in allSolution[depth]:
+        print(sol.value)
