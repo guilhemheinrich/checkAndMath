@@ -8,9 +8,9 @@ class SolutionBranch:
         self.value = 0
         self.alphabet = None
         self.history = History.History()
-        self.target_value = None
-        if kwargs.has_key('target_value'):
-            self.target_value = kwargs['target_value']
+        self.targets_value = None
+        if kwargs.has_key('targets_value'):
+            self.targets_value = kwargs['targets_value']
         if kwargs.has_key('alphabet'):
             self.alphabet = copy.copy(kwargs['alphabet'])
         if kwargs.has_key('value'):
@@ -21,7 +21,7 @@ class SolutionBranch:
             self.alphabet = kwargs['solution'].alphabet[:]
             self.value = kwargs['solution'].value
             self.history = kwargs['solution'].history
-            self.target_value = kwargs['solution'].target_value
+            self.targets_value = kwargs['solution'].targets_value
         
     def generate(self, index, operator):
         assert index < self.alphabet.__len__()
@@ -32,15 +32,7 @@ class SolutionBranch:
             nextHistory.tab_letters.append(self.alphabet[index])
             nextHistory.tab_operators.append(operator)
             del nextAlphabet[index]
-            nextBranch = SolutionBranch(value = nextValue, alphabet = nextAlphabet, history = nextHistory, target_value = self.target_value)
-            # print('___________________________________')
-            # print('current alphabet')
-            # print(self.alphabet)
-            # print(' I picked [index] = ' + str(index) + 'which is ' + str(self.alphabet[index]) )
-            # print('nextAlphabet')
-            # print(nextBranch.alphabet)
-            # print("current history.tab_letters")
-            # print(nextBranch.history.tab_letters)
+            nextBranch = SolutionBranch(value = nextValue, alphabet = nextAlphabet, history = nextHistory, targets_value = self.targets_value)
             return nextBranch
 
     def bloom(self, operatorList, solutionList, depth):
@@ -49,11 +41,16 @@ class SolutionBranch:
                 # print(index)
                 newBranch = self.generate(index, ope)
                 if newBranch != None:
-                    if not (depth in solutionList):
-                        solutionList[depth] = []
-                    solutionList[depth].append(newBranch)
+                    newBranch.handleValue(solutionList, depth)
                     newBranch.bloom(operatorList, solutionList, depth + 1)
-                    # print(newBranch.value)
+
+
+    def handleValue(self, solutionList, depth):
+        if not self.value in self.targets_value:
+            return
+        if not (depth in solutionList[self.value]):
+            solutionList[self.value][depth] = {}                   
+        solutionList[self.value][depth][self.history.getKey()] = self
 
 
 
