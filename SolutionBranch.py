@@ -49,8 +49,10 @@ class SolutionBranch:
         if not self.value in self.targets_value:
             return
         if not (depth in solutionList[self.value]):
-            solutionList[self.value][depth] = {}                   
-        solutionList[self.value][depth][self.history.getKey()] = self
+            solutionList[self.value][depth] = {}
+        # print(self.history.tab_letters)
+        # print([x.name for x in self.history.tab_operators])
+        solutionList[self.value][depth + 1][self.history.getKey()] = self
 
 
 

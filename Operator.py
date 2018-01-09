@@ -10,6 +10,13 @@ class Operator:
     def compute(self, x, y):
         return self.binaryOperator(x, y)
 
+    
+    def __hash__(self):
+        return hash((self.name))
+
+    def __eq__(self, other):
+        return (self.name, self.binaryOperator) == (other.name, other.binaryOperator)
+
 
 def add(x, y):
     return x + y
