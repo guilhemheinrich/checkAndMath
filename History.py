@@ -84,8 +84,8 @@ class History:
                     self.ordered_letters[0] = self.ordered_letters[1]
                     self.ordered_letters[1] = mem
                     # print(sortedLetters)
-        print(self.ordered_operators)       
-        print(self.ordered_letters)       
+        # print(self.ordered_operators)       
+        # print(self.ordered_letters)       
         for subindex in range(ol_size):
             # print(sortedOperators[subindex])
             # print(str(sortedLetters[subindex]))            
@@ -97,8 +97,8 @@ class History:
     If there is an inverse function, both components should be sorted and the merged
     '''
     def __reorder(self, orderedLetters, orderedOperatorsName):
-        print(orderedLetters)
-        print(orderedOperatorsName)
+        # print(orderedLetters)
+        # print(orderedOperatorsName)
         sortedLetters = copy.copy(orderedLetters)
         sortedOperatorsName = copy.copy(orderedOperatorsName)
         sortOperators = sorted( range(len(orderedOperatorsName)), key = lambda k : orderedOperatorsName[k])
@@ -110,13 +110,15 @@ class History:
             if sortedOperatorsName[k] != lastOpe:
                 break
             lastOpe = sortedOperatorsName[k]
-        # olA = [None] * (k + 1)
-        # olB = [None] * (len(orderedLetters) - len(olA))
         olA = sortedLetters[:k]
         olB = sortedLetters[k:]
         olA.sort()
         olB.sort()
         return olA+olB, sortedOperatorsName
+    def buildSet(self):
+        self.set_letters = set()
+        for letter in self.ordered_letters:
+            self.set_letters.add(letter)
 
 
         

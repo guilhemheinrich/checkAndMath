@@ -22,10 +22,12 @@ for key in teamB:
 
 root.history.getKey()
 root.bloom(allOperator, allSolution, 0)
-allSolution[11][2]['0_+_3_*_2_+_5'].history.getKey()
+# for solution in allSolution:
+#     solution.buildSet()
+allSolution[11][5]['0_+_3_*_2_+_5'].history.getKey()
 
 for index, key in enumerate(allSolution[11][2]):
-    print((index, key))
+    print (index, key)
     print(allSolution[11][2][key].history.symetric_operators)
 
 for sol in allSolution[11][2]:
